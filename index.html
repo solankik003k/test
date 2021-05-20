@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  
+  body {
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+    background-color: black;
+}
+#sbtn {
+  background-color: green;
+  margin-top: 30vh;
+  color:white;
+  padding: 10px;
+  padding-left: 16%;
+  padding-right: 16%;
+  text-align: center;
+  margin-left: 26%;
+  margin-right: 30%;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+#tstr{
+  background-color: rgb(0,60,30);
+  width: 50vw;
+  height: 50vw;
+  margin-left: 25vw;
+  margin-top: 10vh;
+  border-radius: 50%;
+  box-shadow:
+    0px 0px 100px 40px yellow
+    ;
+  opacity: 0;  
+    
+}
+#tap{
+  background-color: cyan;
+  margin-left: 80%;
+  padding: 10px;
+margin-top: 30vh;
+  position: absolute;
+  margin-right: 4%;
+  color: black;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+#ply{
+  background-color: cyan;
+  padding: 10px;
+  margin-right: 60%;
+  margin-top: 30vh;
+  position: absolute;
+  border-radius: 5px;
+  color: black;
+  margin-left: 4%;
+  font-size: 1rem;
+}
+#k1{
+  text-align:center;
+}
+  
+  
+ </style>
+</head>
+
+<body>
+  <div id="k1">0</div>
+  <div id="tstr"></div>
+  <div id="tst1"></div>
+  <div id="tst2"></div>
+  <button id="ply">play</button>
+  <button id="tap">tap</button>
+  <button id="sbtn">record</button>
+  
+  
+ <script>
+    
+ var k1 = document.getElementById('k1');
+var sbtn = document.getElementById('sbtn');
+var tst1 = document.getElementById('tst1');
+var tap = document.getElementById('tap');
+var ply = document.getElementById('ply');
+var tst2 = document.getElementById('tst2');
+
+alert('**welcome to pattern-maker**');
+alert("***how it works?**step1:press 'record' button to start recording your pattern.");
+alert("**step2 - tap on 'tap' button(the way you tap on beatmaker/drum) to create a pattern.");
+alert("**step3 - click on 'play' to play your last recorded pattern.");
+
+var v = 0;
+
+var tmr = 0;
+var f1t;
+
+sbtn.onclick = function (){
+ // artst = [];
+ if(sbtn.innerHTML == 'stop!!!'){
+ sbtn.innerHTML = 'record';
+ sbtn.style.backgroundColor = 'green';
+ clearInterval(f1t);
+ f1t = null;
+ clearInterval(fes);
+fes = null;
+ tmr = 0;
+ k1.innerHTML = tmr;
+  }
+  else{
+    if(f1t == null){
+f1t = setInterval(f1, 100);
+}
+artst = [];
+ar1 = [];
+ar2 = [];
+ar3 = [];
+clearInterval(fes);
+fes = null;
+sbtn.innerHTML = 'stop!!!';
+sbtn.style.backgroundColor = 'red';
+ply.innerHTML = 'play';
+  }
+  tmr = 0;
+}
+
+function f1(){
+  k1.innerHTML = tmr;
+  tmr++;
+}
+
+
+var a,b,c;
+
+var ar1 = [];
+var ar2 = [];
+var ar3 = [];
+
+
+tap.onclick = function (){
+a = 
+Math.floor(Math.random()*256);
+
+b = 
+Math.floor(Math.random()*256);
+ 
+c =
+  Math.floor(Math.random()* 256);
+  
+ ar1.push(a);
+ ar2.push(b);
+ ar3.push(c);
+  
+  
+ artst.push(tmr);
+// tst1.innerHTML = ar2;
+tstr.style.opacity = 1;
+tstr.style.backgroundColor = 'rgb('+a+','+b+','+c+')';
+
+tstr.style.boxShadow = '0px 0px 100px 40px '+'rgb('+a+','+b+','+c+')';
+
+tap.style.backgroundColor = 'palevioletred';
+setTimeout(f2, 100);
+}
+
+function f2(){
+tstr.style.opacity = 0;
+tap.style.backgroundColor = 'cyan';
+}
+
+var artst = [];
+
+var fes;
+ply.onclick = function (){
+  v = 0;
+  setInterval(tos, 100);
+  
+  if(ply.innerHTML == 'stop'){
+ ply.innerHTML = 'play';
+ply.style.backgroundColor = 'cyan';
+ clearInterval(fes);
+ fes = null;
+ clearInterval(f1t);
+ f1t = null;
+ tmr = 0;
+ k1.innerHTML = tmr;
+}
+  else{
+ sbtn.innerHTML = 'record';
+sbtn.style.backgroundColor = 'green';
+ply.innerHTML = 'stop';
+ply.style.backgroundColor = 'palevioletred';
+fes = setInterval(f3,100);
+clearInterval(f1t);
+f1t = null;
+ tmr = 0;
+  }
+}
+
+function tos(){
+  if(tmr > artst[artst.length-1] && ply.innerHTML == 'stop'){
+    tmr = 0;
+ k1.innerHTML = tmr;
+    ply.innerHTML = 'play';
+ply.style.backgroundColor = 'cyan';
+ clearInterval(fes);
+ fes = null;
+ clearInterval(f1t);
+ f1t = null;
+  }
+}
+
+var x,y,z;
+
+function f3(){
+// tst2.innerHTML = y;
+ f1();
+ if(artst[v] == tmr){
+   
+x = ar1[v];
+y = ar2[v];
+z = ar3[v];
+   
+   v++;
+tstr.style.opacity = 1;
+setTimeout(f2, 100);
+
+tstr.style.boxShadow = '0px 0px 100px 40px '+'rgb('+x+','+y+','+z+')';
+
+tstr.style.backgroundColor = 'rgb('+x+','+y+','+z+')';  
+
+ }
+}
+
+ 
+ </script>
+  
+  
+  
+</body>
+</html>
